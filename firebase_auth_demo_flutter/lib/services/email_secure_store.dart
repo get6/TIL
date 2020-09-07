@@ -20,6 +20,6 @@ class EmailSecureStore {
   }
 
   Future<String> getEmail() async {
-    return await flutterSecureStorage.read(key: storageUserEmailAddressKey);
+    return flutterSecureStorage.read(key: storageUserEmailAddressKey);
   }
 }
