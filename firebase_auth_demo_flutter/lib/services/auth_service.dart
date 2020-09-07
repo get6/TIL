@@ -38,11 +38,11 @@ abstract class AuthService {
     @required bool androidInstallIfNotAvailable,
     @required String androidMinimumVersion,
   }); // 이메일 링크로 접속 보내기
-  Future<User> signInWithGoogle();
+  Future<User> signInWithGoogle(); // 구글 로그인
 
-  Future<User> signInWithFacebook();
+  Future<User> signInWithFacebook(); // 페이스북 로그인
 
-  Future<User> signInWithApple({List<Scope> scopes});
+  Future<User> signInWithApple({List<Scope> scopes}); // 애플 로그인
 
   Future<void> signOut(); // 접속 해제
   Stream<User> get onAuthStateChanged;

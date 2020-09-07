@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth_demo_flutter/constants/strings.dart';
 import 'package:firebase_auth_demo_flutter/services/auth_service.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -89,4 +91,88 @@ class FirebaseEmailLinkHandler {
 
   // Clients can listen to this stream and show a loading indicator while sign in is in progress
   final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
+
+  Future<String> getEmail() => emailStore.getEmail();
+
+  Future<dynamic> _handleLinkError(PlatformException error) async {
+    _errorController.add(EmailLinkError(
+        error: EmailLinkErrorType.linkError, description: error.message));
+  }
+
+  void dispose() {
+    _errorController.close();
+    isLoading.dispose();
+  }
+
+  Future<void> _processDynamicLink(Uri deepLink) async {
+    if (deepLink != null) {
+      await _signInWithEmail(deepLink.toString());
+    }
+  }
+
+  Future<void> _signInWithEmail(String link) async {
+    try {
+      isLoading.value = true;
+      // check that user is not signed in
+      final User user = await auth.currentUser();
+      if (user != null) {
+        _errorController.add(EmailLinkError(
+          error: EmailLinkErrorType.userAlreadySignedIn,
+        ));
+        return;
+      }
+      // check that email is set
+      final email = await emailStore.getEmail();
+      if (email == null) {
+        _errorController.add(EmailLinkError(
+          error: EmailLinkErrorType.emailNotSet,
+        ));
+        return;
+      }
+      // sign in
+      if (await auth.isSignInWithEmailLink(link)) {
+        await auth.signInWithEmailAndLink(email: email, link: link);
+      } else {
+        _errorController.add(EmailLinkError(
+          error: EmailLinkErrorType.isNotSignInWithEmailLink,
+        ));
+      }
+    } on PlatformException catch (e) {
+      _errorController.add(EmailLinkError(
+        error: EmailLinkErrorType.signInFailed,
+        description: e.message,
+      ));
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // sign in
+  Future<void> sendSignInWithEmailLink({
+    @required String email,
+    @required String url,
+    @required bool handleCodeInApp,
+    @required String packageName,
+    @required bool androidInstallIfNotAvailable,
+    @required String androidMinimumVersion,
+  }) async {
+    try {
+      isLoading.value = true;
+      // Save to email store
+      await emailStore.setEmail(email);
+      // Send link
+      await auth.sendSignInWithEmailLink(
+          email: email,
+          url: url,
+          handleCodeInApp: handleCodeInApp,
+          iOSBundleID: packageName,
+          androidPackageName: packageName,
+          androidInstallIfNotAvailable: androidInstallIfNotAvailable,
+          androidMinimumVersion: androidMinimumVersion);
+    } on PlatformException catch (_) {
+      rethrow;
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }
