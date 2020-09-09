@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
+import 'app/auth_widget.dart';
 import 'services/auth_service_adapter.dart';
 
 Future<void> main() async {
