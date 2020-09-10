@@ -1,13 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
 
-// Used to store and retrieve the user email address
+/// Used to store and retrieve the user email address
 class EmailSecureStore {
   EmailSecureStore({@required this.flutterSecureStorage})
       : assert(flutterSecureStorage != null);
   final FlutterSecureStorage flutterSecureStorage;
 
-  static const String storageUserEmailAddressKey = "userEmailAddress";
+  static const String storageUserEmailAddressKey = 'userEmailAddress';
 
   // email
   Future<void> setEmail(String email) async {

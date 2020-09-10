@@ -200,7 +200,7 @@ class SignInPage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            SocialSignInButton(
+            SignInButton(
               key: emailPasswordButtonKey,
               text: Strings.signInWithEmailPassword,
               onPressed:
@@ -211,7 +211,7 @@ class SignInPage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            SocialSignInButton(
+            SignInButton(
               key: emailLinkButtonKey,
               text: Strings.signInWithEmailLink,
               onPressed: isLoading ? null : () => _signInWithEmailLink(context),
@@ -232,11 +232,10 @@ class SignInPage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            SocialSignInButton(
+            SignInButton(
               key: anonymousButtonKey,
               text: Strings.goAnonymous,
               color: Colors.lime[300],
-              textColor: Colors.black87,
               onPressed: isLoading ? null : () => _signInAnonymously(context),
             ),
           ],

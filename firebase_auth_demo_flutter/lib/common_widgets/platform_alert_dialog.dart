@@ -64,6 +64,17 @@ class PlatformAlertDialog extends PlatformWidget {
         ),
       );
     }
+    actions.add(
+      PlatformAertDialogAction(
+        child: Text(
+          defaultActionText,
+          key: Key(
+            Keys.alertDefault,
+          ),
+        ),
+        onPressed: () => Navigator.of(context).pop(true),
+      ),
+    );
     return actions;
   }
 }

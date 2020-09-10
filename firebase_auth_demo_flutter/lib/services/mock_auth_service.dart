@@ -1,20 +1,22 @@
 import 'dart:async';
 
-import 'package:apple_sign_in/scope.dart';
+import 'package:apple_sign_in/apple_sign_in.dart';
 import 'package:firebase_auth_demo_flutter/services/auth_service.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:meta/meta.dart';
 import 'package:random_string/random_string.dart' as random;
 
+/// Mock authentication service to be used for testing the UI
+/// Keeps an in-memory store of registered accounts so that registration and sign in flows can be tested.
 class MockAuthService implements AuthService {
   MockAuthService({
     this.startupTime = const Duration(milliseconds: 250),
     this.responseTime = const Duration(seconds: 2),
   }) {
-    Future<void>.delayed(responseTime).then((_) => _add(null));
+    Future<void>.delayed(responseTime).then((_) {
+      _add(null);
+    });
   }
-
   final Duration startupTime;
   final Duration responseTime;
 
@@ -24,6 +26,14 @@ class MockAuthService implements AuthService {
 
   final StreamController<User> _onAuthStateChangedController =
       StreamController<User>();
+  @override
+  Stream<User> get onAuthStateChanged => _onAuthStateChangedController.stream;
+
+  @override
+  Future<User> currentUser() async {
+    await Future<void>.delayed(startupTime);
+    return _currentUser;
+  }
 
   @override
   Future<User> createUserWithEmailAndPassword(
@@ -42,66 +52,12 @@ class MockAuthService implements AuthService {
   }
 
   @override
-  Future<User> currentUser() async {
-    await Future<void>.delayed(startupTime);
-    return _currentUser;
-  }
-
-  @override
-  void dispose() {}
-
-  @override
-  Future<bool> isSignInWithEmailLink(String link) async {
-    return true;
-  }
-
-  @override
-  Stream<User> get onAuthStateChanged => _onAuthStateChangedController.stream;
-
-  @override
-  Future<void> sendPasswordResetEmail(String email) async {}
-
-  @override
-  Future<void> sendSignInWithEmailLink(
-      {String email,
-      String url,
-      bool handleCodeInApp,
-      String iOSBundleID,
-      String androidPackageName,
-      bool androidInstallIfNotAvailable,
-      String androidMinimumVersion}) async {}
-
-  @override
-  Future<User> signInAnonymously() async {
-    await Future<void>.delayed(responseTime);
-    final User user = User(uid: random.randomAlphaNumeric(32));
-    _add(user);
-    return user;
-  }
-
-  @override
-  Future<User> signInWithApple({List<Scope> scopes}) async {
-    await Future<void>.delayed(responseTime);
-    final User user = User(uid: random.randomAlphaNumeric(32));
-    _add(user);
-    return user;
-  }
-
-  @override
-  Future<User> signInWithEmailAndLink({String email, String link}) async {
-    await Future<void>.delayed(responseTime);
-    final User user = User(uid: random.randomAlphaNumeric(32));
-    _add(user);
-    return user;
-  }
-
-  @override
   Future<User> signInWithEmailAndPassword(String email, String password) async {
     await Future<void>.delayed(responseTime);
     if (!_usersStore.keys.contains(email)) {
       throw PlatformException(
         code: 'ERROR_USER_NOT_FOUND',
-        message: 'The email address is not registered. Need and account?',
+        message: 'The email address is not registered. Need an account?',
       );
     }
     final _UserData _userData = _usersStore[email];
@@ -113,6 +69,51 @@ class MockAuthService implements AuthService {
     }
     _add(_userData.user);
     return _userData.user;
+  }
+
+  @override
+  Future<void> sendPasswordResetEmail(String email) async {}
+
+  @override
+  Future<User> signInWithEmailAndLink({String email, String link}) async {
+    await Future<void>.delayed(responseTime);
+    final User user = User(uid: random.randomAlphaNumeric(32));
+    _add(user);
+    return user;
+  }
+
+  @override
+  Future<bool> isSignInWithEmailLink(String link) async {
+    return true;
+  }
+
+  @override
+  Future<void> sendSignInWithEmailLink({
+    @required String email,
+    @required String url,
+    @required bool handleCodeInApp,
+    @required String iOSBundleID,
+    @required String androidPackageName,
+    @required bool androidInstallIfNotAvailable,
+    @required String androidMinimumVersion,
+  }) async {}
+
+  @override
+  Future<void> signOut() async {
+    _add(null);
+  }
+
+  void _add(User user) {
+    _currentUser = user;
+    _onAuthStateChangedController.add(user);
+  }
+
+  @override
+  Future<User> signInAnonymously() async {
+    await Future<void>.delayed(responseTime);
+    final User user = User(uid: random.randomAlphaNumeric(32));
+    _add(user);
+    return user;
   }
 
   @override
@@ -132,13 +133,16 @@ class MockAuthService implements AuthService {
   }
 
   @override
-  Future<void> signOut() async {
-    _add(null);
+  Future<User> signInWithApple({List<Scope> scopes}) async {
+    await Future<void>.delayed(responseTime);
+    final User user = User(uid: random.randomAlphaNumeric(32));
+    _add(user);
+    return user;
   }
 
-  void _add(User user) {
-    _currentUser = user;
-    _onAuthStateChangedController.add(user);
+  @override
+  void dispose() {
+    _onAuthStateChangedController.close();
   }
 }
 
