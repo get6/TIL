@@ -8,26 +8,13 @@ public class Main {
         return new Scanner(System.in);
     }
 
-    public static void test20() {
+    public static void test() {
         Scanner s = getScanner();
-        String[] arr = s.nextLine().split(" ");
-        long[] num = new long[arr.length];
-        for (int i = 0; i < num.length; i++) {
-            num[i] = Integer.parseInt(arr[i]);
-        }
-        int max = 1;
-        long sum = 1;
-        for (long i = num[0]; ; i = num[1]) {
-            if (num[2] < max) {
-                break;
-            }
-            sum *= i;
-            max++;
-        }
-        System.out.println(sum);
+        int max = Integer.parseInt(s.nextLine());
+     
     }
 
     public static void main(String[] args) {
-        test20();
+        test();
     }
 }
