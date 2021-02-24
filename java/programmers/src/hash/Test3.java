@@ -1,6 +1,7 @@
+package hash;
+
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class Test3 {
