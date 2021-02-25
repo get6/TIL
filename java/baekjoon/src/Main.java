@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -8,23 +12,23 @@ public class Main {
 
   public void test() {
     Scanner s = getScanner();
-    int x = s.nextInt();
-    int y = s.nextInt();
+    int[] condArr = Arrays.stream(s.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+    int[] nums = Arrays.stream(s.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
     s.close();
-    boolean isUp = 0 < y;
-    boolean isRight = 0 < x;
-    if (isUp && isRight) {
-      // 위이고 우측이면 제1사분면
-      System.out.println(1);
-    } else if (!isUp && isRight) {
-      // 아래이고 우측이면 제4사분면
-      System.out.println(4);
-    } else if (isUp && !isRight) {
-      // 위이고 좌측이면 제2사분면
-      System.out.println(2);
-    } else if (!isUp && !isRight) {
-      // 아래이고 좌측이면 제 3사분면
-      System.out.println(3);
+
+    BufferedWriter bf = new BufferedWriter(new OutputStreamWriter(System.out));
+    try {
+      for (int i = 0; i < condArr[0]; i++) {
+        int num = nums[i];
+        if (num < condArr[1]) {
+          String str = num + " ";
+          bf.write(str);
+        }
+      }
+      bf.flush();
+      bf.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
