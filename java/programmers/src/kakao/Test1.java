@@ -1,6 +1,9 @@
+package kakao;
+
 import java.util.*;
 
-public class Test5 {
+// 메뉴 리뉴
+public class Test1 {
     List<Map<String, Integer>> foodMaps = new ArrayList<>();
     int[] maxCnt = new int[11];
 
@@ -53,7 +56,7 @@ public class Test5 {
     }
 
     public static void main(String[] args) {
-        Test5 test5 = new Test5();
-        test5.solution(new String[]{"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"}, new int[]{2, 3, 4});
+        Test1 test1 = new Test1();
+        test1.solution(new String[]{"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"}, new int[]{2, 3, 4});
     }
 }

@@ -446,6 +446,154 @@ public class Legacy {
         }
     }
 
+    public static void test33() {
+        Scanner s = getScanner();
+        int max = 0;
+        int[][] pan = new int[19][19];
+
+        while (s.hasNextLine()) {
+            String[] arr = s.nextLine().split(" ");
+            int[] arrNum = new int[arr.length];
+            for (int i = 0; i < arrNum.length; i++) {
+                arrNum[i] = Integer.parseInt(arr[i]);
+            }
+            // 한 배열을 그대로 복사하는 경우 사용
+            System.arraycopy(arrNum, 0, pan[max], 0, pan.length);
+//            for (int i = 0; i < pan.length; i++) {
+//                pan[max][i] = arrNum[i];
+//            }
+            max++;
+            if (19 <= max) {
+                break;
+            }
+        }
+        max = 0;
+        int cnt = Integer.parseInt(s.nextLine());
+        while (s.hasNextLine()) {
+            String[] arr = s.nextLine().split(" ");
+            int[] arrNum = new int[arr.length];
+            for (int i = 0; i < arrNum.length; i++) {
+                arrNum[i] = Integer.parseInt(arr[i]);
+            }
+            int first = arrNum[0] - 1;
+            int second = arrNum[1] - 1;
+            for (int i = 0; i < pan.length; i++) {
+                int val = pan[first][i];
+                pan[first][i] = val < 1 ? 1 : 0;
+            }
+
+            for (int i = 0; i < pan.length; i++) {
+                int val = pan[i][second];
+                pan[i][second] = val < 1 ? 1 : 0;
+            }
+            max++;
+            if (cnt <= max) {
+                break;
+            }
+        }
+        s.close();
+        for (int i = 0; i < pan.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < pan[i].length; j++) {
+                sb.append(pan[i][j]);
+                if (j != pan[i].length - 1) {
+                    sb.append(" ");
+                }
+
+            }
+            System.out.println(sb.toString());
+        }
+    }
+
+    public static void test34() {
+        Scanner s = getScanner();
+        // String[] to int[]
+        int[] arrNum = Arrays.stream(s.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int[][] fields = new int[arrNum[0]][arrNum[1]];
+        // 좌표를 받을 횟수
+        int num = Integer.parseInt(s.nextLine());
+        // 막대 정보가 담길 배열
+        int[][] sticks = new int[num][4];
+        for (int i = 0; i < sticks.length; i++) {
+            sticks[i] = Arrays.stream(s.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            int len = sticks[i][0];
+            // 0 가로, 1 세로
+            int direction = sticks[i][1];
+            int x = sticks[i][2] - 1;
+            int y = sticks[i][3] - 1;
+            if (direction == 0) {
+                // 가로면 한 행을 찾아서 1을 삽입
+                // 2차원 위치가 고정
+                for (int j = 0; j < len; j++) {
+                    fields[x][y++] = 1;
+                }
+            } else {
+                // 세로면 한 열을 찾아서 1을 삽입
+                // 1차원 위치가 고정
+                for (int j = 0; j < len; j++) {
+                    fields[x++][y] = 1;
+                }
+            }
+        }
+        s.close();
+        for (int[] field : fields) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < field.length; j++) {
+                sb.append(field[j]);
+                if (j != field.length - 1) {
+                    sb.append(" ");
+                }
+            }
+            System.out.println(sb);
+        }
+    }
+
+    public static void test35() {
+        Scanner s = getScanner();
+        int[][] mazes = new int[10][10];
+        // String[] to int[]
+        for (int i = 0; i < 10; i++) {
+            mazes[i] = Arrays.stream(s.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        }
+        s.close();
+        boolean find = false;
+        int start = 0;
+        for (int i = 0; i < mazes.length; i++) {
+            int[] maze = mazes[i];
+            for (int j = start; j < maze.length; j++) {
+                int path = maze[j];
+                if (path == 1) {
+                    continue;
+                }
+                if (path == 0) {
+                    maze[j] = 9;
+                    if (j != maze.length - 1 && maze[j + 1] == 1) {
+                        start = j;
+                        break;
+                    }
+                }
+                if (path == 2) {
+                    maze[j] = 9;
+                    find = true;
+                    break;
+                }
+            }
+            if (find) {
+                break;
+            }
+        }
+        for (int i = 0; i < mazes.length; i++) {
+            int[] maze = mazes[i];
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < maze.length; j++) {
+                sb.append(maze[j]);
+                if (j != maze.length - 1) {
+                    sb.append(" ");
+                }
+            }
+            System.out.println(sb);
+        }
+    }
 
     public static void main(String[] args) {
 
