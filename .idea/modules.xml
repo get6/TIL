@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TIL.iml" filepath="$PROJECT_DIR$/TIL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TIL.iml" filepath="$PROJECT_DIR$/.idea/TIL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/baekjoon/baekjoon.iml" filepath="$PROJECT_DIR$/java/baekjoon/baekjoon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java/programmers/programmers.iml" filepath="$PROJECT_DIR$/java/programmers/programmers.iml" />
     </modules>
   </component>
 </project>
