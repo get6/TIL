@@ -47,10 +47,10 @@ public class MathProblem {
         try {
             BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
             int[] nums = Arrays.stream(bf.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            bf.close();
             int a = nums[0]; // 낮에 올라갈 수 있는 미터 2
             int b = nums[1]; // 밤에 미끄러지는 미터 1
             int v = nums[2]; // 높이가 v인 나무 막대 5
-            bf.close();
             // 소괄호들이 먼저 계산되고 + 1
             int days = (v - b - 1) / (a - b) + 1;
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
