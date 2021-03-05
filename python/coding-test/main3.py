@@ -115,24 +115,31 @@ def womensChairman():
         print(floor[-1])
 
 
-n = int(input())
-cnt = 0
-if n >= 10:
-    kg1 = 0
-    for i in range(1, (n // 5) + 1):
-        kg1 += 5
-        cnt += 1
-    n -= kg1
-if n >= 3:
-    kg2 = 0
-    for i in range(1, (n // 3) + 1):
-        kg2 += 3
-        cnt += 1
-    n -= kg2
-if n > 0:
-    cnt = -1
-print(cnt)
-
 # 18 // 5 + 18 // 3
 # 5x + 3y = 18
 # x = 3 y = 1
+
+# 우선 순위를 정해야 하나
+# 5로 나눴을 때 남는다면 3키로나 -1이 될 수 있고
+# 5로 나눴을 때 11같은 경우에는 5키로 하나 3키로 두개해서 3개를 들고 갈 수 있지만 5키로를 2개 들면 1이 남아 -1이 된다.
+# 해결방법은 무한루프안에 먼저 5로 나눌 수 있는지 확인하고 참이라면 5로 나누고 종료 아니라면 3을 계속 뺀다.
+def findSugar():
+    n = int(input())
+    cnt = 0
+    while True:
+        if n % 5 == 0:
+            cnt += int(n / 5)
+            n /= 5
+            break
+        n -= 3
+        cnt += 1
+
+        if n < 0:
+            cnt = -1
+            break
+
+    print(cnt)
+
+# =WHeK9MM
+# print(sum(list(map(int, input().split()))))
+# print(eval('+'.join(input().split())))

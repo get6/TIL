@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -62,8 +63,16 @@ public class MathProblem {
         }
     }
 
+    public void test4() {
+        Scanner s = new Scanner(System.in);
+        String[] nums = s.nextLine().split(" ");
+        BigInteger b1 = new BigInteger(nums[0]);
+        BigInteger b2 = new BigInteger(nums[1]);
+        System.out.println(b1.add(b2));
+    }
+
     public static void main(String[] args) {
         MathProblem mp = new MathProblem();
-        mp.test3();
+        mp.test4();
     }
 }
