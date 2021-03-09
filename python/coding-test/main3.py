@@ -140,6 +140,24 @@ def findSugar():
 
     print(cnt)
 
+
 # =WHeK9MM
 # print(sum(list(map(int, input().split()))))
 # print(eval('+'.join(input().split())))
+
+n, m = map(int, input().split())
+arr = [False] * m
+
+for i in range(2, m):
+    if arr[i]:
+        continue
+    j = i * 2
+    while j <= m:
+        if m <= j:
+            break
+        arr[j] = True
+        j += i
+
+for i in range(n, len(arr)):
+    if not arr[i]:
+        print(i)
