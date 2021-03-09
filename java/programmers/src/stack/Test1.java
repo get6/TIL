@@ -53,11 +53,16 @@ public class Test1 {
     }
 
     public static void main(String[] args) {
-        Test1 test1 = new Test1();
-        int res = 0;
-        res = test1.solution(2, 10, new int[]{7, 4, 5, 6});
-        System.out.println(res);
-        res = test1.solution(100, 100, new int[]{10});
-        System.out.println(res);
+//        Test1 test1 = new Test1();
+//        int res = 0;
+//        res = test1.solution(2, 10, new int[]{7, 4, 5, 6});
+//        System.out.println(res);
+//        res = test1.solution(100, 100, new int[]{10});
+//        System.out.println(res);
+        int x = 1, y = 6;
+        while (y-- > 0) {
+            x++;
+        }
+        System.out.println(x + " " + y);
     }
 }
