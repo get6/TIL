@@ -346,20 +346,38 @@ def prime_number():
             print(i)
 
 
+# 642 정답 10, 643 정답 11
 x = int(input())
 cnt = 0
-while True:
-    if x == 1:
-        break
-    if x % 3 == 0:
-        x //= 3
-        cnt += 1
-        continue
-    else:
-        x -= 1
-        cnt += 1
-        if x % 2 == 0:
-            x //= 2
-            cnt += 1
+# while True:
+#     if x == 1:
+#         break
+#     isWhile = False
+#     while (x - 1) % 3 == 0:
+#         x -= 1
+#         x //= 3
+#         cnt += 2
+#         isWhile = True
+#     while x % 3 == 0:
+#         x //= 3
+#         cnt += 1
+#         isWhile = True
+#     while x % 2 == 0:
+#         x //= 2
+#         cnt += 1
+#         isWhile = True
+#     if not isWhile:
+#         x -= 1
+#         cnt += 1
 
-print(cnt)
+dp = [0 for _ in range(x + 1)]
+# 다이나믹 프로그래밍 참고하기
+for i in range(2, x + 1):
+    dp[i] = dp[i - 1] + 1
+
+    if i % 2 == 0 and dp[i] > dp[i // 2] + 1:
+        dp[i] = dp[i // 2] + 1
+    if i % 3 == 0 and dp[i] > dp[i // 3] + 1:
+        dp[i] = dp[i // 3] + 1
+
+print(dp[x])
