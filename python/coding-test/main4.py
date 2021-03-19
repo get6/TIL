@@ -86,5 +86,22 @@ def setting(data):
     return data[1]
 
 
-result = sorted(array, key=setting)
-print(result)
+# result = sorted(array, key=setting)
+# print(result)
+
+def factorial(n):
+    if n < 2:
+        return 1
+    return n * factorial(n - 1)
+
+
+def fibonacci(n, max, v1, v2):
+    if max == n:
+        return v1
+
+    return fibonacci(n, max + 1, v2, v1 + v2)
+
+
+n = int(input())
+
+print(fibonacci(n, 0, 0, 1))
