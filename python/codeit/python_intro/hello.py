@@ -103,6 +103,13 @@ while year < 2016:
     year += 1
 
 list_test = [3.54, 4.45, 3.41, 1.25]
+list_test.reverse()
 
 print(f"사실은 {[round(x, 1) for x in list_test[:3]]}을 불러오고 싶은데")
 print(f"사실은 {[float(f'{x:.1f}') for x in list_test[:3]]}을 불러오고 싶은데")
+
+for a in range(1, 333):
+    for b in range(a + 1, 500):
+        c = 1000 - a - b
+        if a ** 2 + b ** 2 == c ** 2 and a + b + c == 1000:
+            print(a * b * c)
