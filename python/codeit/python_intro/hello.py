@@ -116,20 +116,136 @@ for a in range(1, 333):
 
 import random
 
-# 코드를 작성하세요.
-answer = random.randint(1, 20)
 
-i = 4
-while 0 < i:
-    inp = int(input(f"기회가 {i}번 남았습니다. 1-20 사이의 숫자를 맞혀 보세요: "))
-    if inp == answer:
-        print(f"축하합니다. {5 - i}번 만에 숫자를 맞히셨습니다.")
-        break
-    elif inp < answer:
-        print("Up")
+def game_3():
+    # 코드를 작성하세요.
+    answer = random.randint(1, 20)
+
+    i = 4
+    while 0 < i:
+        inp = int(input(f"기회가 {i}번 남았습니다. 1-20 사이의 숫자를 맞혀 보세요: "))
+        if inp == answer:
+            print(f"축하합니다. {5 - i}번 만에 숫자를 맞히셨습니다.")
+            break
+        elif inp < answer:
+            print("Up")
+        else:
+            print("Down")
+        i -= 1
+
+    if i < 1:
+        print(f"아쉽습니다. 정답은 {answer}입니다.")
+
+
+d = [0] * 100
+
+
+def fibo(x):
+    if x == 1 or x == 2:
+        return 1
+
+    if d[x] != 0:
+        return d[x]
+
+    d[x] = fibo(x - 1) + fibo(x - 2)
+    return d[x]
+
+
+def pibo(x):
+    print(f'({x})', end=' ')
+    if x == 1 or x == 2:
+        return 1
+    if d[x] != 0:
+        return d[x]
+    d[x] = pibo(x - 1) + pibo(x - 2)
+    return d[x]
+
+
+# d[1] = 1
+# d[2] = 1
+# n = 99
+#
+# for i in range(3, n + 1):
+#     d[i] = d[i - 1] + d[i - 2]
+#
+# answer = d[n]
+# print(answer)
+
+def eight_five():
+    # 정수 x를 입력받기
+    x = int(input())
+
+    # 앞서 계산된 결과를 저장하기 위한 DP 테이블 초기화
+    d = [0] * 30001
+
+    # 다이나믹 프로그래밍 진행(보텀업)
+    for i in range(2, x + 1):
+        # 현재의 수에서 1을 빼는 경우
+        d[i] = d[i - 1] + 1
+        # 현재의 수가 2로 나누어 떨어지는 경우
+        if i % 2 == 0:
+            val = d[i // 2]
+            d[i] = min(d[i], val + 1)
+        if i % 3 == 0:
+            val = d[i // 3]
+            d[i] = min(d[i], val + 1)
+        if i % 5 == 0:
+            val = d[i // 5]
+            d[i] = min(d[i], val + 1)
+
+    print(d[x])
+
+
+def eight_six():
+    n = int(input())
+
+    array = list(map(int, input().split()))
+    d = [0] * 100
+
+    d[0] = array[0]
+    d[1] = max(array[0], array[1])
+    for i in range(2, n):
+        prev1 = d[i - 1]
+        prev2 = d[i - 2]
+        arr_val = array[i]
+        d[i] = max(prev1, prev2 + arr_val)
+
+    print(d[n - 1])
+
+
+def eight_seven():
+    n = int(input())
+
+    d = [0] * 1001
+
+    d[1] = 1
+    d[2] = 3
+    for i in range(3, n + 1):
+        d[i] = (d[i - 1] + 2 * d[i - 2]) % 796796
+
+    print(d[n])
+
+
+def eight_eight():
+    n, m = map(int, input().split())
+    array = []
+    for i in range(n):
+        array.append(int(input()))
+
+    d = [10001] * (m + 1)
+
+    d[0] = 0
+    for i in range(n):
+        for j in range(array[i], m + 1):
+            # (i - k)원을 만드는 방법이 존재하는 경우
+            val = d[j - array[i]]
+            if val != 10001:
+                d[j] = min(d[j], val + 1)
+
+    # 최종적으로 M원을 만드는 방법이 없는 경우
+    if d[m] == 10001:
+        print(-1)
     else:
-        print("Down")
-    i -= 1
+        print(d[m])
 
-if i < 1:
-    print(f"아쉽습니다. 정답은 {answer}입니다.")
+eight_eight()
