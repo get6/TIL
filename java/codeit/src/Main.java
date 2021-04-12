@@ -1,14 +1,17 @@
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        BlackjackCard card1 = new BlackjackCard(1, 1);
-        BlackjackCard card2 = new BlackjackCard(2, 6);
-        BlackjackCard card3 = new BlackjackCard(4, 12);
+        ArrayList<Printable> shapes = new ArrayList<>();
 
-        System.out.println(card1.getValue());
-        System.out.println(card1.isAce());
-        System.out.println(card2.getValue());
-        System.out.println(card2.isAce());
-        System.out.println(card3.getValue());
-        System.out.println(card3.isAce());
+        shapes.add(new Rectangle(3, 4));
+        shapes.add(new Rectangle(4, 2));
+        shapes.add(new Square(3));
+        shapes.add(new Square(1));
+
+        for (Printable shape : shapes) {
+            shape.print();
+            System.out.println("---------");
+        }
     }
 }

@@ -1,20 +1,19 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class Deck {
+public class Deck<T extends Card> {
 
-    private ArrayList<Card> cards;
+    private ArrayList<T> cards;
 
     public Deck() {
         this.cards = new ArrayList<>();
     }
 
-    public ArrayList<Card> getCards() {
+    public ArrayList<T> getCards() {
         return cards;
     }
 
-    public void addCard(Card card) {
+    public void addCard(T card) {
         cards.add(card);
     }
 
@@ -25,11 +24,11 @@ public class Deck {
     }
 
     public void shuffle() {
-        ArrayList<Card> newCards = new ArrayList<>();
+        ArrayList<T> newCards = new ArrayList<>();
         while (1 < cards.size()) {
             Random random = new Random();
             int index = random.nextInt(cards.size());
-            Card card = cards.remove(index);
+            T card = cards.remove(index);
             if (card == null) {
                 continue;
             }
