@@ -1,16 +1,52 @@
+import math
+
 n = int(input())
-# 1부터 13까지는 3개 1부터 58까지는 5개
-# 1 기준으로 2,3,4,5,6,7 (6개)은 두 번에 갈 수 있다 1 + 6 = 7
-# 1 기준으로 8,9,10,11,12,13,14,15,16,17,18,19 (12개)은 세 번에 갈 수 있다. 1 + 18 = 19
-# 1 기준으로 20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37 (18개)
+coordinates = []
 
-start = 1
-last = 0
+for i in range(n):
+    coordinates.append(tuple(map(int, input().split())))
 
-while (True):
-    if n > start:
-        last += 1
-        start = start + last * 6
-    else:
-        print(last + 1)
-        break
+# 1
+# coordinates.append((coordinates[n - 1][0], 0))
+# coordinates.append((coordinates[0][0], 0))
+
+# 2
+coordinates.insert(0, (coordinates[0][0], 0))
+coordinates.append((coordinates[n][0], 0))
+# coordinates.append(coordinates[0])
+
+x_coord = 0
+y_coord = 0
+for i in range(n + 1):
+    current_coord = coordinates[i]
+    next_coord = coordinates[i + 1]
+    x_coord += current_coord[0] * next_coord[1]
+    y_coord += current_coord[1] * next_coord[0]
+
+answer = math.fabs(0.5 * (x_coord - y_coord))
+print(answer)
+
+"""
+6
+1 2
+6 5
+4 2
+8 3
+3 3
+5 4
+
+3
+1 1
+2 1
+3 2
+
+2.5
+
+test 
+1 2
+8 3
+6 4
+5 4
+4 2
+3 3
+"""
