@@ -1,3 +1,3 @@
-const hey = () => "Hey!"
+const hey = () => "Hey!";
 
-hey()
+hey();

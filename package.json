@@ -13,7 +13,8 @@
     "jest:watch": "jest --config jest-test.config.ts --watch",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -22,9 +23,20 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@eslint/js": "^9.2.0",
     "@swc/cli": "^0.3.12",
     "@swc/core": "^1.5.5",
+    "@types/eslint__js": "^8.42.3",
     "@types/node": "^20.12.11",
-    "ts-node": "^10.9.2"
+    "eslint": "^9.2.0",
+    "globals": "^15.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "3.2.5",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^7.8.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }

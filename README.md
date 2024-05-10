@@ -17,14 +17,13 @@
 Typescript를 쓰기 위해서 먼저 프로젝트 초기화가 필요해요. `pnpm init`으로 초기화 할게요.
 
 이제 package.json에 패키지를 추가해요
+
 - `pnpm add typescript`
 - `pnpm add -D ts-node @types/node`
 
 환경을 구성할 땐 필요한 것들이 필요하다고 생각했어요.
+
 - typescript
 - prettier
 - eslint
-- babel
-
-
-보통 React 프로젝트를 실행할 땐 `pnpm dev` 이런식으로 실행시키는데요. 저는 pnpm dev에 인자를 추가하려고 해요. 바로 특정 폴더에 들어가 있는 main.ts 파일이에요. 여기 들어있는 파일은 특정 상황을 실행시킬 수 있는 main 함수를 호출하면서 테스트해보고 싶어서 추가한 함수가 포함된 파일들을 함께 빌드시키고 실행시키는 동작을 해요.
+- swc
