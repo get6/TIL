@@ -1,0 +1,3 @@
+const hey = () => "Hey!"
+
+hey()

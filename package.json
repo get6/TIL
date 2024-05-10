@@ -1,0 +1,30 @@
+{
+  "name": "til",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx swc src/index.ts",
+    "build": "npx swc src/index.ts -o dist/index.js",
+    "lint": "jest --config jest-eslint.config.ts",
+    "lint:watch": "jest --config jest-eslint.config.ts --watch",
+    "jest": "jest --config jest-test.config.ts",
+    "jest:coverage": "jest --config jest-test.config.ts --coverage",
+    "jest:watch": "jest --config jest-test.config.ts --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.5.5",
+    "@types/node": "^20.12.11",
+    "ts-node": "^10.9.2"
+  }
+}
