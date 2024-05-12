@@ -9,7 +9,5 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   eslintConfigPrettier,
-  {
-    ignores: ['node_modules', 'public', 'build', 'dist']
-  }
+  { ignores: ['node_modules', 'public', 'build', 'dist'] }
 ];
