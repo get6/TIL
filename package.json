@@ -5,7 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc src/*.ts --outFile dist/index.js && node dist/index.js",
+    "lint": "jest --config jest-eslint.config.ts",
+    "lint:watch": "jest --config jest-eslint.config.ts --watch",
+    "jest": "jest --config jest-test.config.ts",
+    "jest:coverage": "jest --config jest-test.config.ts --coverage",
+    "jest:watch": "jest --config jest-test.config.ts --watch",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "prepare": "husky"
   },
   "keywords": [],
